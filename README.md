@@ -29,7 +29,7 @@ bearStore.getState() --> { bears = 200 }
 
 bearStore.setState({}); -- By default, setting will merge the passed state. Therefore, this line does nothing.
 bearStore.getState() --> { bears = 200 }
-bearStore.setState({}, true); -- To bypass the merge, pass true to the second parameter.
+bearStore.setState({}, true); -- To bypass the merge and just overwrite instead, pass true to the second parameter.
 bearStore.getState() --> {}
 
 -- Roact:
