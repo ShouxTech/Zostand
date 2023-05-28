@@ -1,5 +1,5 @@
 # Zostand
-A mix of Zustand and personal preferences for state management in Roblox
+A mix of [Zustand](https://github.com/pmndrs/zustand) and personal preferences for state management in Roblox
 
 ```lua
 local bearStore = Zostand.create(
