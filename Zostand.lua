@@ -29,7 +29,7 @@ function Zostand.create(initialState, createActions)
         end;
 
         for set, selector in next, hookStateSetters do
-            set(selector(state));
+            set(typeof(selector) == 'function' and selector(state) or state);
         end;
 
         stateChangedSignal:Fire(state, oldState);
@@ -40,10 +40,10 @@ function Zostand.create(initialState, createActions)
 	local store = {actions = actions};
 
     function store.use(hooks, selector)
-        local hookState, setHookState = hooks.useState(selector(state));
+        local hookState, setHookState = hooks.useState(selector and selector(state) or state);
 
         hooks.useEffect(function()
-            hookStateSetters[setHookState] = selector;
+            hookStateSetters[setHookState] = selector or true;
 
             return function()
                 hookStateSetters[setHookState] = nil;
