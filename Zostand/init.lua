@@ -1,7 +1,6 @@
-local ReplicatedStorage = game:GetService('ReplicatedStorage');
-
-local Signal = require(ReplicatedStorage.Src.Packages.Signal);
-local Sift = require(ReplicatedStorage.Src.Packages.Sift);
+local Signal = require(script.Parent.Parent.Signal);
+local Sift = require(script.Parent.Parent.Sift);
+local React = require(script.Parent.Parent.React);
 
 local Zostand = {};
 
@@ -39,10 +38,10 @@ function Zostand.create(initialState, createActions)
 
 	local store = {actions = actions};
 
-    function store.use(hooks, selector)
-        local hookState, setHookState = hooks.useState(selector and selector(state) or state);
+    function store.use(selector)
+        local hookState, setHookState = React.useState(selector and selector(state) or state);
 
-        hooks.useEffect(function()
+        React.useEffect(function()
             hookStateSetters[setHookState] = selector or true;
 
             return function()

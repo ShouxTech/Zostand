@@ -1,6 +1,11 @@
 # Zostand
 A mix of [Zustand](https://github.com/pmndrs/zustand) and personal preferences for state management in Roblox
 
+## Install
+Install with [wally](https://wally.run/):\
+`Zostand = "shouxtech/zostand@0.1.0"`
+
+## Usage
 ```lua
 local bearStore = Zostand.create(
     {
@@ -32,21 +37,20 @@ bearStore.getState() --> { bears = 200 }
 bearStore.setState({}, true); -- To bypass the merge and just overwrite instead, pass true to the second parameter.
 bearStore.getState() --> {}
 
--- Roact:
-local function Test(props, hooks)
-    local bears = bearStore.use(hooks, function(state) return state.bears; end);
+-- React:
+local function Test(props)
+    local bears = bearStore.use(function(state) return state.bears; end);
 
-    return Roact.createElement('TextButton', {
+    return React.createElement('TextButton', {
         Text = 'Bears: ' .. tostring(bears),
         AnchorPoint = Vector2.new(0.5, 0.5),
         Position = UDim2.fromScale(0.5, 0.5),
         Size = UDim2.fromOffset(200, 50),
         BackgroundColor3 = Color3.new(1, 1, 1),
 
-        [Roact.Event.MouseButton1Click] = function()
+        [React.Event.MouseButton1Click] = function()
             bearStore.actions.increasePopulation();
         end
     });
 end;
-Test = Hooks.new(Roact)(Test);
 ```

@@ -1,0 +1,11 @@
+[package]
+name = "shouxtech/zostand"
+description = "A mix of Zustand and personal preferences for state management"
+version = "0.1.0"
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+
+[dependencies]
+Signal = "sleitnick/signal@1.5.0"
+React = "core-packages/react@17.0.1-rc.19"
+Sift = "csqrl/sift@0.0.6"
