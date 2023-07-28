@@ -3,7 +3,7 @@ A mix of [Zustand](https://github.com/pmndrs/zustand) and personal preferences f
 
 ## Install
 Install with [wally](https://wally.run/):\
-`Zostand = "shouxtech/zostand@0.1.0"`
+`Zostand = "shouxtech/zostand@0.1.1"`
 
 ## Usage
 ```lua

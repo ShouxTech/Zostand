@@ -1,6 +1,6 @@
-local Signal = require(script.Parent.Parent.Signal);
-local Sift = require(script.Parent.Parent.Sift);
-local React = require(script.Parent.Parent.React);
+local Signal = require(script.Parent.Signal);
+local Sift = require(script.Parent.Sift);
+local React = require(script.Parent.React);
 
 local Zostand = {};
 
