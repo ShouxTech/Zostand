@@ -1,6 +1,7 @@
 local Signal = require(script.Parent.Signal);
 local Sift = require(script.Parent.Sift);
 local React = require(script.Parent.React);
+local Utils = require(script.Utils);
 
 local Zostand = {};
 
@@ -38,7 +39,7 @@ function Zostand.create(initialState, createActions)
 
 	local store = {actions = actions};
 
-    function store.use(selector)
+    function store.use(selector: ((state: any) -> any)?)
         local hookState, setHookState = React.useState(selector and selector(state) or state);
 
         React.useEffect(function()
@@ -50,6 +51,36 @@ function Zostand.create(initialState, createActions)
         end, {});
 
         return hookState;
+    end;
+
+    -- Returns a Signal for when the selected state changes.
+    function store.selectionChanged(selector: (state: any) -> any)
+        local signal = Signal.new();
+
+        local stateChangedConnection = stateChangedSignal:Connect(function(newState, oldState)
+            newState = selector(newState);
+            oldState = selector(oldState);
+
+            if typeof(newState) ~= typeof(oldState) then
+                warn(`newState and oldState type mismatch ({typeof(newState)} and {typeof(oldState)})`, debug.traceback());
+            end;
+
+            if typeof(newState) == 'table' then
+                if (not Utils.ShallowEqual(newState, oldState)) or (newState ~= oldState) then
+                    signal:Fire(newState, oldState)
+                end;
+            else
+                if newState ~= oldState then
+                    signal:Fire(newState, oldState);
+                end;
+            end
+        end);
+
+        Utils.AttachToSignalDisconnect(signal, function()
+            stateChangedConnection:Disconnect();
+        end);
+
+        return signal;
     end;
 
     store.getState = get;
