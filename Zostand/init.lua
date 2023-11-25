@@ -29,7 +29,7 @@ function Zostand.create(initialState, createActions)
         end;
 
         for set, selector in next, hookStateSetters do
-            set(typeof(selector) == 'function' and selector(state) or state);
+            set(if typeof(selector) == 'function' then selector(state) else state);
         end;
 
         stateChangedSignal:Fire(state, oldState);
