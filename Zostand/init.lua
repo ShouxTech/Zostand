@@ -40,7 +40,7 @@ function Zostand.create(initialState, createActions)
 	local store = {actions = actions};
 
     function store.use(selector: ((state: any) -> any)?)
-        local hookState, setHookState = React.useState(selector and selector(state) or state);
+        local hookState, setHookState = React.useState(if selector then selector(state) else state);
 
         React.useEffect(function()
             hookStateSetters[setHookState] = selector or true;
